@@ -1,5 +1,12 @@
 # Partner A
 
+## Behavioral Questions
+
+* Tell me a little bit about yourself and your journey to becoming a software engineer.
+* What are some of your professional development goals?
+
+## Roman Numeral Converter
+
 ### (Part 1)
 Given an integer between 1-3999, convert it to a roman numeral.
 
