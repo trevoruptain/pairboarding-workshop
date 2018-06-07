@@ -1,3 +1,3 @@
 # Pairboarding Workshop Index
 
-* [Today's Problem Set](./05-29-18)
+* [Today's Problem Sets](./06-07-18)
