@@ -10,64 +10,123 @@ Describe a time you disagreed with your manager and how you handled it.
 
 **NB**: if you haven't been employed before, replace "manager" with another authority figure like a professor or teacher.
 
-## `streaming_sample`
+# Question \#1
+## Silly Sum
 
-You know how to use `rand` to randomly sample an element from an
-array.
+Write a method, `sillySum`, that takes in a sequence of digits as a string and returns the sum of all digits that match the **_next_** digit in the list. The list is "circular", so the digit after the last digit is the *first* digit in the list.
 
-Now, write a function that, given an input stream of objects, will
-sample a value. The stream has limited length.
+**Examples:**
 
-* Use only `O(1)` memory.
-* Every value in the stream should have an equal probability of being
-  sampled.
+- `1122` produces a sum of `3` (`1` + `2`) because the first digit (`1`) matches the second digit and the third digit (`2`) matches the fourth digit.
+- `1111` produces `4` because each digit (all `1`) matches the next digit.
+- `1234` produces `0` because no digit matches the next.
+- `91212129` produces `9` because the only digit that matches the next one is the last digit, `9`.
 
-### Solution
+Your solution should run in `O(logN)` time and take up `O(1)` extra space.
 
-```ruby
-def streaming_sample(stream)
-  sample = stream
-  num_els = 1 #needs to set to the first stream because otherwise first one never gets picked
+## Solution
 
-  while true
-    next_value = stream.next_value
-    break if next_value.nil?
+```js
+function sillySum(digits) {
+  let sum = 0;
 
-    # keep sample with probability 1 / (num_els + 1)
-    keep_prob = 1.fdiv(num_els + 1)
-    sample = next_value if rand() < keep_prob
+  for (let i = 0; i < digits.length; i++) {
+    if (digits[i] === string[(i + 1) % string.length])
+      sum += parseInt(string[i]);
+  }
 
-    num_els += 1
-  end
-
-  sample
-end
+  return sum;
+}
 ```
 
-Let's prove this works by **induction**. First, note that for `num_els
-= 1`, this says we keep the previous sample (`nil`), with probability
-`0`. So after 1 element, every element has an equal chance of being
-sampled (the only element is selected with probability `1`).
+# Question \#2
+## Checksum
 
-Next, assume that we've iterated through `m` elements, and that the
-streaming sample has selected an element (so far) with equal
-probability `1/m`. Then the probability of keeping the current sampled
-element after considering the `m + 1`th element is `1 / m * m / (m +
-1) == 1 / (m + 1)`. Likewise, the probability of selecting the `m +
-1`th element is `1 / (m + 1)`.
+You are given a 2D array of random integers. Your goal is to calculate the `checksum` of these integers. For each row, determine the difference between the largest value and the smallest value; the checksum is the sum of all these differences.
 
-## `median`
+**Examples:**
 
-Given two **sorted** arrays, find the median element amongst the two
-arrays. That is, if both arrays were combined, find the median element
-from the combined array. Assume that there is not enough memory to
-actually combine both arrays. There exists an O(log n + log m)
-solution.
+```
+[
+ [5, 1, 9, 5],
+ [7, 3],
+ [2, 6, 8]
+]
+```
 
-### Solution
+* The first row's largest and smallest values are `9` and `1`, and their difference is `8`
+* The second row's largest and smallest values are `7` and `3`, and their difference is `4`
+* The third row's difference is `6`
+* The total `checksum` of this input would be `8 + 4 + 6 = 18`
 
-Since they are sorted, you can find the middle element of each to find
-the medians of each list. The actual median is now somewhere in
-between these two numbers. You can then discard the non-relevant
-portions of each list. Repeat the process. When the middle elements
-from both lists converge, you have now found the median element.
+**This method should take `O(N * K)` time, where N is the number if integers in each row, and K is the number of rows. It should take O(1) extra space**
+
+## Solution
+
+```js
+
+function checksum(matrix) {
+  let totalSum = 0;
+
+  matrix.forEach(row => {
+    let min = row[0], max = row[0];
+
+    row.forEach(int => {
+      if (int < min) min = int;
+      if (int > max) max = int;
+    })
+
+    totalSum += max - min;
+  })
+
+  return totalSum;
+}
+```
+
+# Question \#3
+## Queues From Stacks
+
+Implement a Queue using two Stacks. Assume you already have a `Stack` class with the appropriate methods: `push`, `pop`, `peek`, `isEmpty`, and `size`. Create a class, `StackQueue`, that implements this. Your `StackQueue` should function through two primary methods, `enqueue` and `dequeue`. However, feel free to write any additional helper methods that you see fit.
+
+**Constraints:**
+
+* `enqueue`: `O(1)`
+* `dequeue:` `O(N)`, but `O(1)` amortized
+
+## Solution
+
+**Overview:**
+* We instantiate our `StackQueue` with two stacks, left and right.
+* The goal is to **always** dequeue from the right stack, and always enqueue on the left stack
+* If the right stack is empty, that means we have to flip the left stack into the right one
+  * We can implement a helper method, `flipStacks`, that calls pops every element from the left stack _onto_ the right stack until the left stack is empty  
+
+```js
+class StackQueue {
+  constructor() {
+    this.leftStack = new Stack();
+    this.rightStack = new Stack();
+  }
+
+  flipStacks() {
+    while (!this.leftStack.isEmpty()) {
+      this.rightStack.push(this.leftStack.pop());
+    }
+  }
+
+  enqueue(data) {
+    this.leftStack.push(data);
+  }
+
+  dequeue() {
+    if (this.rightStack.isEmpty())
+      this.flipStacks();
+
+    return this.rightStack.pop();
+  }
+}
+```
+
+**Takeaway Question:**
+* What is amortization? Why does the `dequeue` method _amortize_ to `O(1)`?
+> Amortization means that, over time, our `dequeue` method will **average out** to be `O(1)`. This happens because, even though `flipStacks` is `O(N)`, it gives us `N` free `O(1)` operations.
