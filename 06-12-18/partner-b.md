@@ -124,3 +124,22 @@ class LinkedList {
 ```
 
 Our `removeAll` function goes through the list and removes every link matching the value by connecting the nodes before and after the node to remove. It goes through the list once, so it uses `O(n)` time.
+
+## Matchsticks
+
+You have two sticks and a matchbox. Each stick takes exactly an hour
+to burn from one end to the other.
+
+The sticks are weird, in that they do not burn at a steady. If you
+break a stick in half, it is not guaranteed that each half will take
+30min to burn.
+
+How would you measure exactly 45 minutes by burning these sticks?
+
+### Solution
+
+Take stick1, light it at both ends. At the same time, light stick2 at
+one end.
+
+When stick1 is extinguished, 30min have passed. Now, light stick2 at
+the other end. The stick will take another 15min to finish burning.
