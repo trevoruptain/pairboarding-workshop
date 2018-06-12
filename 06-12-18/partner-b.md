@@ -8,138 +8,131 @@ Walk me through your resume.
 
 Describe a time when you had to work with someone on a project that you didn't get along with or disagreed with.
 
-## `filterLinkedList`
+# Question \#1
+## Find Missing Number
 
-Write a double-ended `LinkedList` class in JavaScript.
+You are given an **unsorted** array, and are told that this array contains (n - 1) of n consecutive numbers (where the bounds are defined). Write a method, `findMissingNumber`, that finds the missing number in `O(N)` time
 
-* You should have a `Link` class
-    * It should keep a reference to `next` and `prev`.
-* You should have a `LinkedList` class
-    * It should have `first` and `last` methods to return the
-      first/last links in the list, or `undefined` if the list is empty.
-    * It should have `push` and `pop` methods.
-    * You should write a `remove` method that takes in a value and removes the first link found with that value.
+**Example:**
+```js
+// arrayOfIntegers: [2, 5, 1, 4, 9, 6, 3, 7];
+// upperBound: 9;
+// lowerBound: 1;
 
-Given a linked list of integers and an integer value, delete every
-node of the linkedlist containing that value. Use JavaScript.
+findMissingNumber(arrayOfIntegers, upperBound, lowerBound); // Output: 8
+```
 
-### Solution
+## Solution
 
 ```js
-class Link {
-  constructor(value) {
-    this.next = null;
-    this.prev = null;
-    this.value = value;
-  }
-}
-
-class LinkedList {
-  constructor() {
-    this.head = new Link();
-    this.tail = new Link();
-    this.head.next = this.tail;
-    this.tail.prev = this.head;
+function findMissingNumber(array, upperBound, lowerBound) {
+  // Iterate through array to find the sum of the numbers
+  let sumOfIntegers = 0;
+  for (let i = 0; i < array.length; i++) {
+    sumOfIntegers += array[i];
   }
 
-  isEmpty() {
-    return this.head.next === this.tail;
-  }
+  // Find theoretical sum of the consecutive numbers using a variation of Gauss Sum.
+  // Formula: [(N * (N + 1)) / 2] - [(M * (M - 1)) / 2];
+  // N is the upper bound and M is the lower bound
 
-  first() {
-    if (this.isEmpty()) return null;
-    return this.head.next;
-  }
+  const upperLimitSum = (upperBound * (upperBound + 1)) / 2;
+  const lowerLimitSum = (lowerBound * (lowerBound - 1)) / 2;
 
-  last() {
-    if (this.isEmpty()) return null;
-    return this.tail.prev;
-  }
+  const theoreticalSum = upperLimitSum - lowerLimitSum;
 
-  find(val) {
-    let link = this.first();
-    while (link) {
-      if (link.value === val) {
-        return link;
-      }
-
-      link = link.next;
-    }
-  }
-
-  remove(val) {
-    let nodeToRemove = this.find(val);
-    if (!nodeToRemove) return;
-    let before = nodeToRemove.prev;
-    let after = nodeToRemove.next;
-
-    before.next = after;
-    after.prev = before;
-    nodeToRemove.prev = null;
-    nodeToRemove.next = null;
-
-    return nodeToRemove;
-  }
-
-  push(val) {
-    const link = new Link(val);
-    let last = this.tail.prev;
-    last.next = link;
-    link.prev = last;
-    link.next = this.tail;
-    this.tail.prev = link;
-  }
-
-  pop() {
-    if (this.isEmpty()) return;
-    const last = this.last();
-    const newLast = last.prev;
-
-    newLast.next = this.tail;
-    this.tail.prev = newLast;
-    last.next = null;
-    last.prev = null;
-    return last;
-  }
-
-  removeAll(val) {
-    let link = this.head.next;
-
-    while (link !== this.tail) {
-      if (link.value === val) {
-        let before = link.prev;
-        let after = link.next;
-
-        before.next = after;
-        after.prev = before;
-        link.prev = null;
-        link.next = null;
-        link = after;
-      } else {
-        link = link.next;
-      }
-    }
-  }
+  return theoreticalSum - sumOfIntegers;
 }
 ```
 
-Our `removeAll` function goes through the list and removes every link matching the value by connecting the nodes before and after the node to remove. It goes through the list once, so it uses `O(n)` time.
+# Question \#2
+## Magic Index
 
-## Matchsticks
+The `magic index` of an array occurs when the element at that index is the same as the index itself. More simply, the magic index is when `array[i] === i`. Write a **recursive** method, `findMagicIndex`, that takes in an array and returns the `index` that is the magic index. **The method must take `O(logN)` time and `O(logN)` space.**
 
-You have two sticks and a matchbox. Each stick takes exactly an hour
-to burn from one end to the other.
+**Constraints:**
+* The array is sorted
+* The array may have **multiple magic indices**. If this is the case, return the **leftmost** occurance.
+* The elements in the array don't have to be distinct
+* The magic index doesn't always exist; return `-1` if it doesn't exist
+* The array may have negative values
 
-The sticks are weird, in that they do not burn at a steady. If you
-break a stick in half, it is not guaranteed that each half will take
-30min to burn.
+**Examples:**
 
-How would you measure exactly 45 minutes by burning these sticks?
+```
+a[i]  -4, -2, 2, 6, 6, 6, 6, 10
+i      0,  1, 2, 3, 4, 5, 6, 7
+Result: 2
 
-### Solution
+a[i]  -4 -2  1  6  6  6  6 10
+  i    0  1  2  3  4  5  6  7
+Result: 6
 
-Take stick1, light it at both ends. At the same time, light stick2 at
-one end.
+a[i]  -4 -2  1  6  6  6  7 10
+  i    0  1  2  3  4  5  6  7
+Result: -1
+```
 
-When stick1 is extinguished, 30min have passed. Now, light stick2 at
-the other end. The stick will take another 15min to finish burning.
+If your partner gets stuck, ask them: What an algorithm can run in `O(logN)` time, what does that generally mean we must be doing?
+> The answer we are looking for here is `splitting it in half`
+
+## Solution
+
+```js
+function findMagicIndex(array, start, end) {
+  if (end < start || start < 0 || end >= array.length)
+    return -1;
+
+  const mid = Math.floor((start + end) / 2);
+
+  if (mid === array[mid])
+    return mid;
+
+  const leftEnd = Math.min(mid - 1, array[mid]);
+  const leftResult = findMagicIndex(array, start, leftEnd);
+
+  if (leftResult !== -1)
+    return leftResult;
+
+  const rightStart = Math.max(mid + 1, array[mid]);
+  const rightResult = findMagicIndex(array, rightStart, end);
+
+  if (rightResult !== -1)
+    return rightResult;
+
+  return -1;
+}
+```
+
+**Explanation:**
+
+We'll use a binary search to split the search space in half on each iteration. To obtain more efficiency, we can do a little better than a naive left and half split.
+
+In the example below, we see that `i == 5` cannot be the magic index, otherwise a[5] would have to equal 5 (note a[4] == 6).
+
+```
+a[i]  -4 -2  2  6  6  6  6 10
+  i    0  1  1  3  4  5  6  7
+                  mid
+```
+
+Similarly, in the example below we can further trim the left search space.
+
+```
+a[i]  -4 -2  2  2  2  6  6 10
+  i    0  1  2  3  4  5  6  7
+                  mid
+```
+Steps:
+* Calculate mid
+* If mid == array[mid], return mid
+* Recurse on the left side of the array
+  * start: 0
+  * end: min(mid-1, array[mid]
+* Recurse on the right side of the array
+  * start: max(mid+1, array[mid]
+  * end: end
+
+**Complexity:**
+Time: O(log(n))
+Space: O(log(n))
