@@ -29,6 +29,7 @@ class MyComponent extends React.Component {
     componentWillUnmount() {
         window.removeEventListener(‘resize’, this.onResizeHandler);
     }
+    
 
     onResizeHandler() {
         console.log(‘The window has been resized!’);
@@ -37,7 +38,7 @@ class MyComponent extends React.Component {
 ```
 
 #### Low-level component lifecycle
-![specific component lifecycles](./images/component-lifecycle.png)
+![specific component lifecycles](https://github.com/appacademy/graduated-job_seeker-program/blob/master/pairboarding-problems/images/component-lifecycle.png)
 
 Within these three general buckets exist a number of specific lifecycle hooks — essentially abstract methods — that can be utilized by any React component to more accurately manage updates. Understanding how and when these hooks fire is key to building stable components and will enable you to control the rendering process (improving performance).
 
