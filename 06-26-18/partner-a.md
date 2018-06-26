@@ -1,6 +1,6 @@
 # Partner A
 
-## To Battle!
+## Butting Heads
 
 Tell me about a conflict you had with another team member.
 * What caused it?  What did you do?
