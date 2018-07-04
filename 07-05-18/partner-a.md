@@ -4,137 +4,85 @@
 
 * What do you want to do in 5 years? How would this job fit into your plan and help you toward your goals?
 
-## Find the Median from a Data Stream
+## The Big Picture
 
-The median is the middle number in an ordered array of integers. If the length of the array is even, there is no middle value, so the median is the average of the two middle numbers.
+* What happens when you type in 'www.google.com' and hit enter?
 
-```ruby
-median([1, 2, 3, 4, 5]) => 3
-median([1, 2, 3, 4]) => (2 + 3) / 2 => 2.5
+### Answer 
+
+This is one of the most common interview questions of all time. **It will come up at interviews.** Memorize it.
+
+0. Browser checks its own DNS cache for a corresponding IP address, then your OS’ DNS cache, then (most likely) checks the default router's DNS cache, then ISP / configured DNS server until it gets an answer.
+0. Browser builds HTTP GET string with “http://[url]” as the requested URL
+0. Browser sends request over the network (if asked how that works, mention the Border Gateway Protocol and say you don’t know how it works)
+0. (Possible interaction with proxy server / load balancer / CDN / etc.)
+0. Server parses request string and routes it using Regex on the request path
+0. Application layer assembles a response, possibly via a connection to a DB server
+0. Response goes back over the network
+0. Browser parses the response
+0. Browser checks the headers, in particular the status code.
+0. Browser goes down each HTML element and either paints the DOM or executes the tag
+0. The browser builds a new GET request for each CSS or JS tag, goes through the same steps as above, and runs the code before proceeding.
+
+Further reading:
+
+* [Link 1 (short)][quora scrape]
+* [Link 2 (medium)][igoro]
+* [Link 3 (long)][what happens repo]
+
+[quora scrape]: https://jiangchengl.wordpress.com/2015/08/20/what-happens-when-you-type-www-example-com-in-the-browser-address-and-enter-press-button/
+[igoro]: http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/comment-page-4/
+[what happens repo]: https://github.com/alex/what-happens-when
+
+## Find the Missing Number
+
+* You are given an unsorted array of integers ranging from 1 to ```array.length - 1```. Each number appears once, except for a single number, which is missing from the array. Find that missing number.
+
+### Solution
+
+You could sort the array then iterate through it to find the missing number. However, the sorting would take ```O(nlog n)``` time. This problem can be solved in linear time by utilizing the fact that the sum of a linear series of n numbers is ```n *(n+1) / 2```. 
+
+```javascript
+function missingNumber(arr) {
+  let n = arr.length + 1;
+  let sum = 0;
+  let expectedSum = n * (n+1) / 2;
+  
+  for(var i = 0, i < arr.length; i++){
+    sum += arr[i];
+  }
+  
+  return expectedSum - sum;
+}
 ```
 
-You are designing a data structure that accepts an incoming data stream of integers. Write an API for your data structure which supports the following operations:
+## Well-formed String
 
-* ```add()``` accepts an integer from the stream and adds it to your data structure
-* ```find_median()``` returns the median of all elements which have been added from the stream so far
+A string with the characters `[,],{,},(,)` is said to be well-formed if the different types of brackets match in the correct order.
 
-### Example
+For example, `([]){()}` is well-formed, but `[(]{)}` is not.
 
+Write a function to test whether a string is well-formed.
+
+### Solution
+
+* This is the perfect situation for a stack.
+* If we store all left brackets in a stack then every time we encounter a right bracket, its pair should be on the top of the stack, or else it is unmatched.
+* Additionally, if there are any unmatched left brackets at the end, the string is not well-formed.
+
+---
 ```ruby
-add(8)
-find_median() => 8
-add(16)
-find_median() => 12
-add(4)
-find_median() => 8
-```
+def well_formed(str)
+  left_chars = []
+  lookup = { '(' => ')', '['=> ']', '{'=> '}' }
 
-### Requirements:
-
-* ```O(log n)``` time complexity for insertion
-* ```O(1)``` lookup for the median value
-* ```O(n)``` maximum space to store the dataset
-
-### Hints:
-
-* You could store incoming elements in an array, sort it after each insertion, and index into the middle of the array to find the median. However, this exceeds our time limit.
-* You could use insertion sort to maintain a sorted list. However, insertion would take ```O(nlog n)``` time, which also exceeds our limit.
-* If only there were a data structure with ```log n``` insertion which allowed us to look up its maximum or minimum value in constant time...
-
-## Solution
-
-We can make two inferences from the prompt for this problem:
-
-* If we could maintain direct access to median elements at all times, then finding the median would take a constant amount of time.
-* If we could find a reasonably fast way of adding numbers to our containers, additional penalties incurred could be lessened.
-
-As you may have guessed based on the prompt, we will need to use heaps to solve this problem! The naive approaches mentioned in the hints sort the entire dataset. The key insight here is that we don't need to sort our entire dataset. Instead, we only need a way to access the median elements in constant time.
-
-We can solve this problem using two heaps:
-
-* A max heap to store the smaller half of our dataset
-* A min heap to store the larger half of our dataset
-
-As long as our two heaps are balanced (meaning their lengths differ by at most one), we can find the median by examining the top most elements of our heaps. If ```(MaxHeap.length - MinHeap.length).abs == 1```, our median is simply the top element of the longer heap. If ```(MaxHeap.length == MinHeap.length)```, the median is the average of the top values of both heaps.
-
-We can simplify things for ourselves by only allowing ```MaxHeap``` to be the larger heap. This means that, if we have inserted ```n``` elements, only the following conditions are possible:
-
-* ```MinHeap.length == (n / 2)``` and ```MaxHeap.length == (n / 2)```
-* ```MinHeap.length == (n / 2)``` and ```MaxHeap.length == (n / 2) + 1```
-
-Now it is trivial to determine which method we should use to compute the median by comparing the length of the two heaps.
-
-The only part of this problem which remains is the insertion set. We insert an integer ```k``` into our data structure by following these steps:
-
-* Insert ```k``` into ```MaxHeap```.
-* Since ```MaxHeap``` just received a new element, we remove the largest element from ```MaxHeap``` and insert it into ```MinHeap```.
-* Now, we check to see if ```MinHeap.length``` > ```MaxHeap.length```. If it is, our heaps are imbalanced. We therefore remove the smallest element from ```MinHeap``` and insert it into ```MaxHeap```.
-
-Let's take a look at an example:
-
-```ruby
-insert(41)
-MaxHeap: [41] # MaxHeap stores the largest value at the top (index 0)
-MinHeap: [] # MinHeap stores the smallest value at the top (index 0)
-Median: 41
-=======================
-insert(35)
-MaxHeap: [35]
-MinHeap: [41]
-Median: 38
-=======================
-insert(62)
-MaxHeap: [41, 35]
-MinHeap: [62]
-Median: 41
-=======================
-insert(4)
-MaxHeap: [35, 4]
-MinHeap: [41, 62]
-Median: 38
-=======================
-insert(97)
-MaxHeap: [41, 35, 4]
-MinHeap: [62, 97]
-Median: 41
-=======================
-insert(108)
-MaxHeap: [41, 35, 4]
-MinHeap: [62, 97, 108]
-Median: 51.5
-```
-
-## Solution
-
-```ruby
-require_relative 'max_heap'
-require_relative 'min_heap'
-
-class MedianFinder
-  def initialize
-    @low = MaxHeap.new
-    @high = MinHeap.new
-  end
-
-  def add(n)
-    @low.push(n)
-    @high.push(@low.extract)
-
-    if @high.count > @low.count
-      @low.push(@high.extract)
+  str.chars.each do |char|
+    if lookup.keys.include?(char)
+      left_chars << char
+    elsif left_chars.length == 0 || lookup[left_chars.pop] != char
+      return false
     end
   end
-
-  def find_median
-    if @low.count > @high.count
-      @low.peek
-    else
-      (@low.peek + @high.peek) / 2
-    end
-  end
+  return left_chars.empty?
 end
 ```
-
-## Credit
-
-* The prompt and solution are adapted from [this problem](https://leetcode.com/problems/find-median-from-data-stream/description/) from Leetcode.
