@@ -59,3 +59,41 @@ end
 
 ### Credit:
 * Adapted from [this](https://www.geeksforgeeks.org/given-sorted-dictionary-find-precedence-characters/) Geeks for Geeks problem.
+
+## Making the Switch
+
+You’re in a room with three light switches, each of which controls one of three light bulbs in the next room. You need to determine which switch controls which bulb. All lights are off to begin, and you can’t see into one room from the other. You can inspect the other room only once. How can you find out which switches are connected to which bulbs? 
+
+### Solution
+
+Let’s call the switches 1, 2, and 3.
+
+Leave switch 1 off.
+
+Turn switch 2 on for ten minutes.
+
+Now turn it off and quickly turn on switch 3.
+
+Go into the room and inspect…
+
+The bulb that is still warm but not lit up is controlled by switch 2. The one that’s currently lit up is switch 3. The last one is switch 1.
+
+## Frenemies
+
+You’re about to get on a plane to Seattle. You want to know if it’s raining. You call 3 random friends who live there and ask each if it’s raining. Each friend has a 2/3 chance of telling you the truth and a 1/3 chance of messing with you by lying. All 3 friends tell you that “Yes” it is raining. What is the probability that it’s actually raining in Seattle? 
+
+### Solution
+
+You only need 1 of your friends to be telling the truth for it to be raining in Seattle.
+
+It’s fastest just to calculate the odds that all 3 are lying, and it’s not raining.
+
+Each friend has a 1/3 chance of lying. Multiply the odds together… you get 1/27 (1/3 * 1/3 * 1/3).
+
+We’re not done yet though… 1/27 is the probability that all 3 friends lied at the same time.
+
+The probability that at least 1 told you the truth? 26/27 or around a 96% that it’s raining in Seattle.
+
+## Credit
+
+Trivia questions taken from [this article](https://careersidekick.com/brain-teaser-job-interview-questions-facebook-google-apple/)
