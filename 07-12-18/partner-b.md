@@ -55,3 +55,53 @@ def longest_sub(arr)
   longest.max_by(&:length).length
 end
 ```
+
+## Taking Your Chances
+
+A  gangster kidnaps you. He puts two bullets in consecutive order in an empty six-round revolver, spins it, points it at your head and shoots. *click* You’re still alive. He then asks you, “do you want me to spin it again and fire or pull the trigger again right away?” For each option, what is the probability that you’ll be shot?
+
+### Solution
+
+The key hint here is that the bullets were loaded adjacent to each other.
+
+There are 4 ways to arrange the revolver with consecutive bullets so that the first shot is blank. These are the possible scenarios:
+
+* (xBBxxx)
+* (xxBBxx)
+* (xxxBBx)
+* (xxxxBB)
+
+The other two scenarios would have meant you got shot on the first attempt. (BBxxxx) or (BxxxxB)
+
+Now look at the second slot in those 4 possible scenarios above. Your odds of getting shot are 1/4 or 25%. (Only #1 would get you shot)
+
+But if you respin… there are 2 bullets remaining and 6 total slots. 2/6 or 33%.
+
+## Apples and Oranges
+
+There are three boxes, one contains only apples, one contains only oranges, and one contains both apples and oranges. The boxes have been incorrectly labeled such that no label identifies the actual contents of its box. Opening just one box, and without looking in the box, you take out one piece of fruit. By looking at the fruit, how can you immediately label all of the boxes correctly? 
+
+### Solution
+
+So, you know all 3 boxes are incorrectly labeled.
+
+Go to the box labeled “Apples + Oranges.” Since the label is wrong, it must have one or the other.
+
+This is the box to take one piece of fruit from. Whichever comes out is what that box contains. If you took out an apple, the box has only apples. If you took out an orange, vice versa.
+
+Here’s where it gets tricky a bit tricky. But we’re almost done…
+
+Let’s say you grabbed an apple. Move the “Apples” label over to that box. Now it’s correctly labeled.
+
+You know the “Oranges” box is still labeled wrong (because all 3 were labeled wrong to start and you haven’t touched it). And you know it’s not “Apples”.
+
+So it has to be “Apples + Oranges”.
+
+The last box is “Oranges”.
+
+The same process above would work if you had pulled out an orange at the start.
+
+## Credit
+
+Trivia questions taken from [this article](https://careersidekick.com/brain-teaser-job-interview-questions-facebook-google-apple/)
+
