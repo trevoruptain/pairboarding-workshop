@@ -17,6 +17,7 @@ Note that words are sorted and in the given language "baa" comes before "abcd", 
 ```
 Input:  words = ["caa", "aaa", "aab"]
 Output: 'c', 'a', 'b'
+```
 
 ### Solution
 
