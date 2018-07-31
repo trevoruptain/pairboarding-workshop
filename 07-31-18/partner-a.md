@@ -8,7 +8,7 @@
 
 * What happens when you type in 'www.google.com' and hit enter?
 
-### Answer 
+### Answer
 
 This is one of the most common interview questions of all time. **It will come up at interviews.** Memorize it.
 
@@ -33,6 +33,29 @@ Further reading:
 [quora scrape]: https://jiangchengl.wordpress.com/2015/08/20/what-happens-when-you-type-www-example-com-in-the-browser-address-and-enter-press-button/
 [igoro]: http://igoro.com/archive/what-really-happens-when-you-navigate-to-a-url/comment-page-4/
 [what happens repo]: https://github.com/alex/what-happens-when
+
+## Warm Up
+
+Write a function ```sum``` in JavaScript that returns the sum of two arguments passed in the following ways:
+
+```JavaScript
+sum(17, 10) // returns 27
+sum(17)(10) // returns 27
+```
+
+### Solution
+
+* The solution is a simple matter of currying
+```JavaScript
+const sum = (x, y) => {
+	if (y === undefined) {
+  	return (z) => {
+    	return x + z
+    }
+  }
+	return x + y
+}
+```
 
 ## Well-formed String
 
