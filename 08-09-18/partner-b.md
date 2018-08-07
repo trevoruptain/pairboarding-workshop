@@ -1,4 +1,4 @@
-# Parnter B
+# Partner B
 
 ## Dead Weight
 * Have you ever had to work with someone else that didn’t pull their weight on a project?
