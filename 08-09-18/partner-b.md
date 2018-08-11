@@ -96,5 +96,5 @@ class QuickSort {
 }
 let a = [9, -3, 5, 2, 6, 8, -6, 1, 3]
 let QS = new QuickSort();
-QS.iterativeQuickSort(a)
+QS.iterativeQuickSort(a) // returns => [-6, -3, 1, 2, 3, 5, 6, 8, 9]
 ```
