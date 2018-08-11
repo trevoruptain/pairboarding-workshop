@@ -2,11 +2,11 @@
 ### Given a string that includes curly braces containing a set of |pipe| separated options, select one of those options at random from the set, and replace the set in the string with the option selected. ###
 For example:
   - input:
-    - "test string. option {1|2|3}"
+    - ```"test string. option {1|2|3}"```
   - output (any one of the following):
-    - "test string. option 1"
-    - "test string. option 2"
-    - "test string. option 3"
+    - ```"test string. option 1"```
+    - ```"test string. option 2"```
+    - ```"test string. option 3"```
 
 note:
   - Input strings will always be well formed.
@@ -14,7 +14,7 @@ note:
 
 also, sets can be nested to any depth. For example:
   - input:
-    - `"--{A: {1|2|3||={100|200}=} :A| b: {4|5|6}} :b --"`
+    - ``"--{A: {1|2|3||={100|200}=} :A| b: {4|5|6}} :b --"``
   - output (any one of the following):
     - `"--A: 1 :A--"`
     - `"--A: 2 :A--"`
