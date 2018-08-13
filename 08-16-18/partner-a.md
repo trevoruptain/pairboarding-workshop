@@ -365,6 +365,7 @@ class MinHeap {
   }
 }
 
+// definition for a heap node
 class Node {
     constructor(value, listNum, idx) {
       this.value = value;
@@ -393,41 +394,40 @@ class Node {
     }
 };
 
-class Merge {
-    // Function to merge M sorted lists of variable length and
-    // print them in ascending order
-    printSorted(list) {
-        // create an empty min-heap
-        let comparator = new Comparator();
-        let pq = new MinHeap(comparator);
+// Function to merge M sorted lists of variable length and
+// print them in ascending order
+printSorted(list) {
+    // create an empty min-heap
+    let comparator = new Comparator();
+    let pq = new MinHeap(comparator);
 
-        // push first element of each list into the min-heap
-        // along with list number and their index in the list
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].length > 0) {
-                pq.add(new Node(list[i][0], i, 0));
-            }
+    // push first element of each list into the min-heap
+    // along with list number and their index in the list
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].length > 0) {
+            pq.add(new Node(list[i][0], i, 0));
         }
+    }
 
-        // run till min-heap is not empty
-        let result = []       
-        while (pq.length > 0) {
-            // extract minimum node from the min-heap
-            let min = pq.poll();
-           // print the minimum element
-            result.push(min.getValue());
+    // run till min-heap is not empty
+    let result = []       
+    while (pq.length > 0) {
+        // extract minimum node from the min-heap
+        let min = pq.poll();
+       // print the minimum element
+        result.push(min.getValue());
 
-            // take next element from "same" list and insert it into the
-            // min-heap
-            if (min.getIndex() + 1 < list[min.getListNum()].length) {
-                min.setIndex(min.getIndex() + 1);
-                min.setValue(list[min.getListNum()][min.getIndex()]);
-                pq.add(min);
-            }
+        // take next element from "same" list and insert it into the
+        // min-heap
+        if (min.getIndex() + 1 < list[min.getListNum()].length) {
+            min.setIndex(min.getIndex() + 1);
+            min.setValue(list[min.getListNum()][min.getIndex()]);
+            pq.add(min);
         }
-        return result;
-    }   
-}
+    }
+    return result;
+}   
+
 let list = [
         [10, 20, 30, 40],
         [15, 25, 35],
@@ -435,6 +435,5 @@ let list = [
         [32, 33]
       ]
 
-let sorter = new Merge()
-sorter.printSorted(list); // => [ 10, 15, 20, 25, 27, 29, 30, 32, 33, 35, 37, 40, 48, 93 ]
+printSorted(list); // => [ 10, 15, 20, 25, 27, 29, 30, 32, 33, 35, 37, 40, 48, 93 ]
 ```
