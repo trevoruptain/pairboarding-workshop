@@ -20,7 +20,7 @@ Now you are comparing `"" == 1` but the left and right is still not the same typ
 
 Finally, now that they're the same type, you are comparing `0 === 1` which will be false.
 
-### Find the first k non-repeating characters in a string
+## Find the first k non-repeating characters in a string
 * Given a string, find the first K non-repeating characters in it by doing only a single traversal of it.
 
 ```JavaScript
