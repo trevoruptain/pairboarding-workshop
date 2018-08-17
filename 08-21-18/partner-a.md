@@ -85,3 +85,4 @@ const nodeCount = (root) => {
     return 1 + nodeCount(root.left) + nodeCount(root.right);
 }
 ```
+The idea behind the follow up question is to determine what extra information is required for the divide-and-conquer strategy. Basically because we can know the number of nodes on the left subtree, we get to know what the position of the root node is, in the in-order traversal, which is basically the the kth number. The left value can be saved in each node of the tree, and when we are finding the kth number. The time complexity of the above solution is O(n) because we have to traverse half the tree (n/2) before you get the right answer and 2 is a constant.
