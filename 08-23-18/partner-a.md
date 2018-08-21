@@ -159,17 +159,17 @@ for (let key in keys) {
 }
 
 // => 8
-Successor is 10
-10
-Successor is 12
-12
-Successor is 15
-15
-Successor is 16
-16
-Successor is 20
-20
-Successor is 25
-25
-No Successor
+// Successor is 10
+// 10
+// Successor is 12
+// 12
+// Successor is 15
+// 15
+// Successor is 16
+// 16
+// Successor is 20
+// 20
+// Successor is 25
+// 25
+// No Successor
 ```
