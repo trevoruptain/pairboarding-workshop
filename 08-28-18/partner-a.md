@@ -1,3 +1,21 @@
+# Partner A
+
+## Sacrifices
+* Tell me about a time you made a hard decision to sacrifice short term gain for a longer term goal.
+
+## System Design
+* Let's design Instagram!
+
+Note:
+When designing a social medial service with hundreds of million (or billions of users), interviewers are interested in knowing how would you design the following components
+
+* Efficient storage and search for posts or tweets.
+* Newsfeed generation
+* Social Graph (who befriends whom or who follows whom — specially when millions of users are following a celebrity)
+
+### Answer
+There isn't a single correct answer to this question.  It should be an open ended discussion based on the criteria above.  Look for their ability to talk about technical concepts at a high level and let them drill down as deep as they want into the implementation.  Try not to spend more than 10 to 15 minutes on this problem.
+
 ## Problem:
 ### Given a string that includes curly braces containing a set of |pipe| separated options, select one of those options at random from the set, and replace the set in the string with the option selected. ###
 For example:
