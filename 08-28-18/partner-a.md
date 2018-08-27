@@ -26,7 +26,7 @@ also, sets can be nested to any depth. For example:
     - `"-- b: 5 :b --"`
     - `"-- b: 6 :b --"`
 
-##Solution
+## Solution
 
 ``` ruby
 test = "{1|2} and {7|3|4} test:{{ 1| {3|4|5}| 6}| num}"
