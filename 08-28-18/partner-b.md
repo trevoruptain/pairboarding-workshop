@@ -70,4 +70,38 @@ def find_longest_palindrome(s)
  end  
  ```
 
- 
+ **Optimal Solution - Linear time O(n)**
+
+ Here is a linear time solution. Guaranteed to be 2N or fewer comparisons.
+
+ This solution is similar to the first solution but it uses findings from previous palindrome length calculations to reduce how much processing it has to do. It takes advantage of the fact that if you know there is a large palindrome centered around one character, the characters to the immediate right of that character must be at the center of palindromes at least as long as the palindromes centered around characters to the immediate left.
+
+ Example: `"abcbcbadef"` When you're looking at the `'b'` at index 3, you calculate that it's the center of a palindrome 7 characters long (spanning out 3 characters in each direction). So when you go to calculate the palindrome centered around index 4 (the second 'c'), you know that it must be at least as long as the palindrome you've already calculated at index 2 (the first 'c') which is 3 characters long. And seeing that those 3 characters don't take you past the end of the palindrome centered around `'b'` at index 3, you know that it can only be 3 characters long. And similarly when you look at index 5 (the third `'b'`), you know that its palindrome must be the same as the palindrome at index 1 (the first `'b'`), which is only 1 character long.
+
+```ruby
+ def longest_palindrome(str)  
+   palindrome_lengths = {}  
+   center = right = 0  
+   # This gsub changes a string "abc" into "~a~b~c~"
+   # This is done to avoid the problem of even length palindromes    
+   processed_str = str.gsub(/(\w|$)/, '~\1')  
+   0.upto (processed_str.length - 1) do |i|  
+     i_mirror = center - (i - center)  
+     if (right > i)  
+       palindrome_lengths[i] = [right-i, palindrome_lengths[i_mirror]].min  
+     else  
+       palindrome_lengths[i] = 0  
+     end
+     while (processed_str[i + 1 + palindrome_lengths[i]] == processed_str[i - 1 - palindrome_lengths[i]])
+       palindrome_lengths[i] += 1
+     end
+     if (i + palindrome_lengths[i] > right)  
+       center = i;  
+       right = center + palindrome_lengths[i];  
+     end  
+   end  
+   max = palindrome_lengths.values.max  
+   center_index = palindrome_lengths.key(max)  
+   str[(center_index - max)/2, max]  
+ end
+ ```
