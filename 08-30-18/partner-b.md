@@ -1,5 +1,19 @@
 # Partner B
 
+## Time Management
+* How do you manage your time and tasks?
+* How do you stay organized?
+
+## System Design
+* Let's design Uber!
+
+Note:
+While designing a ride-sharing service, discuss things like:
+
+* The most critical use case — when a customer requests a ride and how to efficiently match them with the nearby drivers?
+* How to store millions of geographical locations for drivers and riders who are always moving.
+* How to handle updates to driver/rider locations (millions of updates every second)?
+
 ## Longest Substring Without Duplication
 
 Write a function that takes in a string and that returns its longest substring without duplicate characters.  Assume that there will only be one longest substring without duplication.
