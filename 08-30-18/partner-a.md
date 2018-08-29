@@ -1,5 +1,20 @@
 # Partner A
 
+## Behavioral
+* What do you like about software/tech?
+
+## Apply yourself
+* How could you use Math.max to find the maximum value in an array?
+
+### Answer
+Use apply on Math.max and pass the array as apply takes an array of arguments. Since we are not reading anything from this or using it at all. We can simply pass null as first parameter.
+
+```JavaScript
+function getMax(arr){
+  return Math.max.apply(null, arr);  
+}
+```
+
 ## Min Number Of Jumps
 ​
 You are given a non-empty array of integers. Each element represents the maximum number of steps you can take forward. For example, if the element at index 1 is 3, you can go from index 1 to index 2, 3, or 4. Write a function that returns the minimum number of jumps needed to reach the final index. Note that jumping from index i to index i + x always constitutes 1 jump, no matter how large x is.
