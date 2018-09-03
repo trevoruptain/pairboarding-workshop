@@ -47,3 +47,5 @@ While this `parseInt`-based approach will work well for many values of x, once x
 > parseInt(1000000000000000000000, 10) === 1000000000000000000000
 false
 ```
+
+## Boggle Board
