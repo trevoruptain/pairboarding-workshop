@@ -1,5 +1,24 @@
 # Partner B
 
+## Behavioral
+* Tell me about a time when you realized you needed to have a deeper level of subject matter expertise to do your job well?
+
+## Arguments and Call
+* Write a simple function in JavaScript to tell whether `2` is a passed parameter or not.
+
+### Answer
+`arguments` is a local variable, available inside all functions that provides a collection of all the arguments passed to the function. `arguments` is not an array rather an array like object. It has length but doesn't have the methods like `forEach`, `indexOf`, etc.  First we convert `arguments` to an array by calling the `slice` method on it. After that simply use `indexOf`.
+
+```JavaScript
+function isTwoPassed(){
+  var args = Array.prototype.slice.call(arguments);
+  return args.indexOf(2) != -1;
+}
+
+isTwoPassed(1,4) //false
+isTowPassed(5,3,1,2) //true
+```
+
 ## Flatten Binary Tree to Linked list
 * Given a binary tree, flatten it to a linked list in-place.
 
