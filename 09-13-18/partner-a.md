@@ -29,7 +29,7 @@ Explanation: 342 + 465 = 807.
 ```
 
 ### Answer
-The solution here is to keep track of the carry using a variable and simulate digits-by-digits sum starting from the head of list, which contains the least-significant digit.  Just like how you would sum two numbers on a piece of paper, we begin by summing the least-significant digits, which is the head of l1 and l2. Since each digit is in the range of 0...9, summing two digits may "overflow". For example 5 + 7 = 12. In this case, we set the current digit to 2 and bring over the carry = 1 to the next iteration. carry must be either 0 or 1 because the largest possible sum of two digits (including the carry) is 9 + 9 + 1 = 19.
+The solution here is to keep track of the carry using a variable and simulate digits-by-digits sum starting from the head of list, which contains the least-significant digit.  Just like how you would sum two numbers on a piece of paper, we begin by summing the least-significant digits, which is the head of `l1` and `l2`. Since each digit is in the range of `0...9`, summing two digits may "overflow". For example 5 + 7 = 12. In this case, we set the current digit to 2 and bring over the `carry` = 1 to the next iteration. `carry` must be either 0 or 1 because the largest possible sum of two digits (including the `carry`) is 9 + 9 + 1 = 19. The time complexity of this algorithm is O(max(m,n)). Assume that m and n represents the length of `l1` and `l2` respectively, the algorithm above iterates at most max(m,n) times.  The space complexity is O(max(m,n)). The length of the new list is at most max(m,n)+1.
 
 ```JavaScript
 const addTwoNumbers = (l1, l2) => {
