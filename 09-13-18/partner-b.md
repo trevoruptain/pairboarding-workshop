@@ -1,3 +1,8 @@
+## Vision Check
+* How do you drive adoption for your vision/ideas?
+* How do you know how well your idea or vision has been adopted by other teams or partners?
+* Give a specific example highlighting one of your ideas.
+
 ## Remove Kth Node From End Of Linked List
 
 * Given a linked list, remove the k-th node from the end of list and return its head.
