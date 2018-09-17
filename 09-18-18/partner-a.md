@@ -82,6 +82,6 @@ const maxSubsetSumNoAdjacent = (arr) => {
     second = first;
     first = curr;
   }
-  return first;
+  // return first;
 }
 ```
