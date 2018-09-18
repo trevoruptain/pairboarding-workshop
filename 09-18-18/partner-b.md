@@ -25,6 +25,11 @@ In JavaScript, there are two sets of equality operators. The triple-equal operat
 ## Levenshtein Distance
 Write a function that takes in two strings and returns the minimum number of edit operations that need to be performed on the first string to obtain the second string.  There are three edit operations: insertion of a character, deletion of a character, and substitution of a character for another.
 
+```
+input: "abc", "yabd"
+output: 2 // (insert "y"; substitute "c" for "d")
+```
+
 ### Answer
 We can solve this problem efficiently using dynamic programming.  We'll start by building up a 2d array, hereby referred to as `edits`, of the minimum numbers of edits for pairs of substrings of the input strings.  The rows of the array represent substrings of the second input string `str2`.  The first row represents the empty string and each row `i` thereafter represents the substrings of `str2` from `0` to `i`, with `i` excluded.  The columns will similarly represent the first input string `str1`.  See example below:
 
