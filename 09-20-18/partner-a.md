@@ -34,3 +34,62 @@ obj.c.age = 45;
 console.log('After Change - obj: ', obj);           // 45 - This also changes
 console.log('After Change - objclone: ', objclone); // 45
 ```
+
+## Min Number of Coins to Make Change
+Write a function that takes in an amount and a set of coins.  Return the minimum number of coins needed to make change for the given amount.  You may assume you have an unlimited supply of each type of coin. If it's not possible to make change for a given amount, return nil or NaN.
+
+Example:
+``` ruby
+make_change(14, [10, 7, 1])
+# return 2 because [7, 7] is the smallest combination
+```
+
+## Solution
+
+### Brute Force Iterative
+```ruby
+def make_change(amount, coins = [25, 10, 5, 1])
+  coins = coins.sort.reverse
+
+  best_change = nil
+
+  (0...coins.count).each do |index|
+    change = []
+    total = 0
+    coins.drop(index).each do |coin|
+      until (coin + total) > amount
+        change << coin    
+        total += coin
+      end
+    end
+
+    if (best_change.nil? || change.count < best_change.count)
+      best_change = change
+    end
+  end
+
+  return best_change if best_change.nil?
+  best_change.count
+end
+```
+
+### Dynamic Programming
+
+```JavaScript
+const makeChange = (n, coins) {
+  const numOfCoins = (new Array(n + 1)).fill(Infinity);
+  numOfCoins[0] = 0;
+  for (let coin in coins) {
+    for (let amount = 0; amount < numOfCoins.length; amount++) {
+      if (coin <= amount) {
+        numOfCoins[amount] = Math.min(numOfCoins[amount], numOfCoins[amount - coin] + 1);
+      }
+    }
+  }
+  return numOfCoins[n] !== Infinity ? numOfCoins[n] : NaN;
+}
+```
+
+## Detailed Explanation of mutliple approaches (highly recommended)
+
+https://leetcode.com/articles/coin-change/
