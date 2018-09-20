@@ -38,11 +38,11 @@ str1 = "abc"
 str2 = "yabd"
 
    "" a, b, c
-""
-y
-a
-b
-d
+"" 0  1  2  3
+y  1  1  2  3
+a  2  1  2  3
+b  3  2  1  2
+d  4  ?  ?  ?
 ```
 To fill in the above grid we'll go one row at a time.  We'll find the minimum numbers of edits between all the substrings of str1 represented by the columns and the empty string represented by the first row, then between all the substrings of `str1` represented by the columns and the first letter of `str2` represented by the second row, etc., until we compare both full strings.  Now we can derive a formula for for finding the next value in our 2d array based on the previous values in our array.  Our formula is as follows:
 ```
