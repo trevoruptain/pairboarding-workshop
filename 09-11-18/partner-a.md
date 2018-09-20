@@ -47,7 +47,7 @@ const reverse = (node) => {
   }
   reverse(node.next())
   let temp = node.next()
-  temp.setNextNode(node)
-  node.setNextNode(null)
+  temp.next = node
+  node.next = null
 }
 ```
